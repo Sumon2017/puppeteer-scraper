@@ -1,8 +1,11 @@
 const express = require("express");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const plugin = StealthPlugin();
 
-puppeteer.use(StealthPlugin());
+delete plugin._evasions['chrome.app'] // remove broken reference
+
+puppeteer.use(plugin);
 
 const app = express();
 const port = process.env.PORT || 3000;
