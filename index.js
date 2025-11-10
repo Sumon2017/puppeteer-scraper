@@ -2,9 +2,13 @@ const express = require("express");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const plugin = StealthPlugin();
-
-delete plugin._evasions['chrome.app'] // remove broken reference
-
+plugin.enabledEvasions = new Set([
+  'navigator.plugins',
+  'navigator.webdriver',
+  'user-agent-override',
+  'webgl.vendor',
+  'window.outerdimensions'
+]);
 puppeteer.use(plugin);
 
 const app = express();
